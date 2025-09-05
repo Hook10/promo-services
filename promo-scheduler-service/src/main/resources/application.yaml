@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: promo-scheduler-service
+  task:
+    scheduling:
+      enabled: true
+
+scheduler:
+  promo:
+    enabled: true
+    cron: "0 * * * * *"
+    initial-delay: 60000
