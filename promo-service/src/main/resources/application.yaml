@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: promo-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  server:
+    port: 8084
+
+kafka:
+  bootstrap-servers : rkf-kfk1-lt3.hq.bc:9093,rkf-kfk2-lt3.hq.bc:9093,rkf-kfk3-lt3.hq.bc:9093
+  security-protocol: "SASL_PLAINTEXT"
+  sasl-jaasConfig: "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"SEARCH_USER\" password=\"C7BywM8Wc2H\";"
+  saslMechanism: SCRAM-SHA-256
+  client-id: promo-producer
+  topics.promo: promo-topic
+  producer:
+    acks: all
+    retries: 3
+    retry-backoff-ms-config: 1000
+    request-timeout-ms-config: 15000
+    key-serializer-class-config: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer-class-config: com.kas.promoservice.util.serializer.PromoEventSerializer
+
+
+mongo:
+  server: mongodb://search_user:dy8jcez36zsm@pcm-mng2-lt3.hq.bc/?authMechanism=SCRAM-SHA-256
+
+server:
+  port: 8085

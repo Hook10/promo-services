@@ -1,0 +1,11 @@
+package com.kas.promoservice.config;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+@EnableConfigurationProperties
+@ConfigurationProperties(prefix = "mongo")
+public record MongoProps(
+        String server
+) {
+}
