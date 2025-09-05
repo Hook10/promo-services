@@ -18,9 +18,9 @@ management:
     port: 8084
 
 kafka:
-  bootstrap-servers : rkf-kfk1-lt3.hq.bc:9093,rkf-kfk2-lt3.hq.bc:9093,rkf-kfk3-lt3.hq.bc:9093
+  bootstrap-servers : 
   security-protocol: "SASL_PLAINTEXT"
-  sasl-jaasConfig: "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"SEARCH_USER\" password=\"C7BywM8Wc2H\";"
+  sasl-jaasConfig:
   saslMechanism: SCRAM-SHA-256
   client-id: promo-producer
   topics.promo: promo-topic
@@ -34,7 +34,7 @@ kafka:
 
 
 mongo:
-  server: mongodb://search_user:dy8jcez36zsm@pcm-mng2-lt3.hq.bc/?authMechanism=SCRAM-SHA-256
+  server: 
 
 server:
   port: 8085
