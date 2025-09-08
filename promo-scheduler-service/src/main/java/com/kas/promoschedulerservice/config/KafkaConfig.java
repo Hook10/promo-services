@@ -1,6 +1,6 @@
-package com.kas.promoservice.config;
+package com.kas.promoschedulerservice.config;
 
-import com.kas.promoservice.dto.event.PromoEvent;
+import com.kas.promoschedulerservice.dto.event.PromoEvent;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

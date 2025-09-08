@@ -26,8 +26,7 @@ public class PromoSchedulerService {
   private final PromoDao promoDao;
   private final KafkaSender<String, PromoEvent> kafkaSender;
 
-  @Scheduled(cron = "${scheduler.promo.cron:0 * * * * *}",
-      initialDelayString = "${scheduler.promo.initial-delay:10000}")
+  @Scheduled(cron = "${scheduler.promo.cron:0 * * * * *}")
   public void checkAndUpdatePromoStatuses() {
     log.info("Starting promo status check scheduler...");
 
@@ -39,12 +38,13 @@ public class PromoSchedulerService {
   }
 
   private Mono<Void> checkAndStartPromos() {
-    log.debug("Checking for promos that should start...");
+    log.info("Checking for promos that should start...");
     LocalDateTime now = LocalDateTime.now();
+    log.info("-----------------{}----------------", Instant.now());
 
     return promoDao.findPromosToStart(now)
         .flatMap(promo -> {
-          if (promo.getStatus() == Status.ENABLED && promo.getStartsAt().isBefore(now)) {
+          if (promo.getStatus().equals(Status.ENABLED) || promo.getStatus().equals(Status.PENDING) && promo.getStartsAt().isBefore(now)) {
             return activatePromo(promo);
           } else if (promo.getStatus() == Status.ENABLED && promo.getStartsAt().isAfter(now)) {
             return setPromoToPending(promo);
@@ -55,9 +55,8 @@ public class PromoSchedulerService {
   }
 
   private Mono<Void> checkAndEndPromos() {
-    log.debug("Checking for promos that should end...");
+    log.info("Checking for promos that should end...");
     LocalDateTime now = LocalDateTime.now();
-
     return promoDao.findPromosToEnd(now)
         .flatMap(promo -> {
           if ((promo.getStatus() == Status.ENABLED || promo.getStatus() == Status.PENDING) &&
@@ -72,7 +71,7 @@ public class PromoSchedulerService {
 
   private Mono<Promo> activatePromo(Promo promo) {
     log.info("Activating promo: {}", promo.getId());
-    promo.setStatus(Status.PENDING); // Or whatever status represents active
+    promo.setStatus(Status.ENABLED);
     promo.setUpdatedAt(LocalDateTime.now());
 
     return promoDao.update(promo.getId(), promo.getVersion(), promo)
@@ -129,7 +128,7 @@ public class PromoSchedulerService {
 
   private PromoEvent buildPromoEvent(Promo promo, PromoEvent.EventType eventType, String description) {
     PromoEvent event = new PromoEvent();
-    event.setEventId(UUID.randomUUID().toString());
+    event.setEventId(promo.getId());
     event.setEventType(eventType);
     event.setOccurredAt(Instant.now());
 

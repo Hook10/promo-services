@@ -18,10 +18,10 @@ management:
     port: 8084
 
 kafka:
-  bootstrap-servers : 
-  security-protocol: "SASL_PLAINTEXT"
-  sasl-jaasConfig:
-  saslMechanism: SCRAM-SHA-256
+  bootstrap-servers : localhost:9092
+#  security-protocol: "SASL_PLAINTEXT"
+#  sasl-jaasConfig:
+#  saslMechanism: SCRAM-SHA-256
   client-id: promo-producer
   topics.promo: promo-topic
   producer:
@@ -34,7 +34,7 @@ kafka:
 
 
 mongo:
-  server: 
+  server: mongodb://localhost:27017
 
 server:
   port: 8085

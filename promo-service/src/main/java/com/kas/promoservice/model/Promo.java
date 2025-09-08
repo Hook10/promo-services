@@ -19,12 +19,13 @@ public class Promo {
     private String id;
     private String name;
     private String description;
-    private int discountPercent;
+    private Integer discountPercent;
     private List<String> bookIds;
     private Status status;
-    private LocalDateTime startsAt = LocalDateTime.now();
+    private LocalDateTime startsAt;
     private LocalDateTime endsAt;
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private Long version;
+    
 }

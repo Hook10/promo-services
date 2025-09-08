@@ -1,6 +1,6 @@
 package com.kas.promoschedulerservice.dto;
 
-import com.kas.promoservice.model.Status;
+import com.kas.promoschedulerservice.model.Status;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;

@@ -10,3 +10,22 @@ scheduler:
     enabled: true
     cron: "0 * * * * *"
     initial-delay: 60000
+
+kafka:
+  bootstrap-servers : localhost:9092
+  #  security-protocol: "SASL_PLAINTEXT"
+  #  sasl-jaasConfig:
+  #  saslMechanism: SCRAM-SHA-256
+  client-id: promo-producer2
+  topics.promo: promo-topic
+  producer:
+    acks: all
+    retries: 3
+    retry-backoff-ms-config: 1000
+    request-timeout-ms-config: 15000
+    key-serializer-class-config: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer-class-config: com.kas.promoschedulerservice.util.serializer.PromoEventSerializer
+
+
+mongo:
+  server: mongodb://localhost:27017

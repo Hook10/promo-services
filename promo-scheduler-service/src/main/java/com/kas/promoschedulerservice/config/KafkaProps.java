@@ -1,4 +1,4 @@
-package com.kas.promoservice.config;
+package com.kas.promoschedulerservice.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

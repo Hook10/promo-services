@@ -5,6 +5,9 @@ import com.kas.promoservice.model.Promo;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface PromoMapper extends BaseMapper<Promo, PromoDto> {
+public interface PromoMapper {
+
+  PromoDto toDto(Promo promo);
+  Promo toEntity(PromoDto promoDto);
 
 }
